@@ -18,8 +18,7 @@ public class otherModel {
 	 static int height;
 	 static JFrame f;
 	 static int mask[][] = {{1,1,1}, {1,1,1}, {1,1,1}};
-	 static double maskGauss[][];
-	 int odczylenieGauss;
+	 static double maskGauss[][] = {{1,1,1,1,1}, {1,2,4,2,1}, {1,4,8,4,1}, {1,2,4,2,1}, {1,1,1,1,1}};
 	 	
 	public static void openPicture() {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -37,16 +36,6 @@ public class otherModel {
 	
 	public static boolean picturePathIsEmpty() {
 		return picturePath.isEmpty();
-	}
-	
-	private static double[][] wypelnGauss(int odchylenie) {
-		double[][] tablica = new double[3][3];
-		for(int x = 0; x < 3; x++) {
-			for(int y = 0; y < 3; y++) {
-				tablica[x][y] = Math.exp((-(x*x+y*y))/(2*odchylenie*odchylenie))/(2*Math.PI*Math.PI);
-			}
-		}
-		return tablica;
 	}
 	
 	public static void boxFiltr() {
@@ -67,17 +56,17 @@ public class otherModel {
 						 z = 0;
 						 
 						 for(int k=-1; k<=1; k++) {
-							 for(int l=-1; l<=1; l++) {
-								 Color c = new Color(image.getRGB(j+k, i+l));
-								 int red = (int)(c.getRed());
-								 int green = (int)(c.getGreen());
-								 int blue = (int)(c.getBlue());
+					            for(int l=-1; l<=1; l++) {
+							 Color c = new Color(image.getRGB(j+k, i+l));
+							 int red = (int)(c.getRed());
+							 int green = (int)(c.getGreen());
+							 int blue = (int)(c.getBlue());
 
 						         x += red * mask[k+1][l+1];
 						         y += green * mask[k+1][l+1];
 						         z += blue * mask[k+1][l+1];
 
-							 }
+						      }
 						 }
 							 
 						 x = x/9;
@@ -121,34 +110,34 @@ public class otherModel {
 				 width = image.getWidth();
 				 height = image.getHeight();
 				 
-				 maskGauss = wypelnGauss(1);
 				 
-				 for(int i = 1; i < height-1; i++){
-					 for(int j = 1; j < width-1; j++){
+				 for(int i = 2; i < height-2; i++){
+					 for(int j = 2; j < width-2; j++){
 						 
 						 double x, y, z;
 						 x = 0;
 						 y = 0;
 						 z = 0;
 						 
-						 for(int k=-1; k<=1; k++) {
-							 for(int l=-1; l<=1; l++) {
-								 Color c = new Color(image.getRGB(j+k, i+l));
-								 int red = (int)(c.getRed());
-								 int green = (int)(c.getGreen());
-								 int blue = (int)(c.getBlue());
+						 for(int k=-2; k<=2; k++) {
+						     for(int l=-2; l<=2; l++) {
+							 Color c = new Color(image.getRGB(j+k, i+l));
+							 int red = (int)(c.getRed());
+							 int green = (int)(c.getGreen());
+							 int blue = (int)(c.getBlue());
 
-						         x += red * maskGauss[k+1][l+1];
-						         y += green * maskGauss[k+1][l+1];
-						         z += blue * maskGauss[k+1][l+1];
+						         x += red * maskGauss[k+2][l+2];
+						         y += green * maskGauss[k+2][l+2];
+						         z += blue * maskGauss[k+2][l+2];
+								 
+							 sum += maskGauss[k+2][l+2]
 
-							 }
+						      }
 						 }
 						 
-						 System.out.println(x + " " + y + " " + z);
-						 x = x;
-						 y = y;
-						 z = z;
+						 x = x/sum;
+						 y = y/sum;
+						 z = z/sum;
 						 
 						 if (x>255) {
 							 x=255;
@@ -170,7 +159,7 @@ public class otherModel {
 						 image.setRGB(j,i,newColor.getRGB());
 					 }
 				 }
-				 File ouptut = new File(picturePath.replace(".jpg", "_gauss_filter19.jpg"));
+				 File ouptut = new File(picturePath.replace(".jpg", "_gauss_filter.jpg"));
 				 ImageIO.write(image, "jpg", ouptut);
 				 f = new JFrame();
 				 JOptionPane.showMessageDialog(f, "Success!");
