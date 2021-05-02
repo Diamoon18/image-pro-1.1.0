@@ -80,7 +80,7 @@ if(e.equals(pow.powButtons[4])) {
 			}
 ...
 ```
-powModel - new method wyrownanieHistogramu()\
+powModel - new method wyrownanieHistogramu()
 1. Compute h - histogram for the image.
 ```java
 		wykresRgb();
