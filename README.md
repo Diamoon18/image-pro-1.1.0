@@ -95,6 +95,11 @@ private double[] plotKomulacyjny(double [] rgb) {
 	    }
 		return tablica;
 }
+
+public double[] getRed() {
+	    return plotKomulacyjny(red);
+}
+...	
 ```
 ```java
 		plotRGB g = new plotRGB(redd, greenn, bluee);
