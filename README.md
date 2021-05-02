@@ -126,12 +126,12 @@ public double[] getRed() {
 		wRGB.drawPlot();
 ```
 otherModel class - Box filtr and Gauss filtr\
-Class structure is similar to linearModel.
+Class structure is similar to linearModel.\
 1.Box filter - blur with a mask 3x3
 ```java
 		static int mask[][] = {{1,1,1}, {1,1,1}, {1,1,1}};
 ```
-Main logic of the boxFilter() method.\
+Main logic of the ```boxFilter()``` method.\
 Image convolution filtering mechanism:\
 The image brightness values multiplied by the masking factors will be summed up and divided by the sum of the masking factors.\
 Checking that it isn't out of range RGB.\
@@ -186,4 +186,4 @@ Setting new RGB values and save image.
 				 File ouptut = new File(picturePath.replace(".jpg", "_box_filtr.jpg"));
 				 ImageIO.write(image, "jpg", ouptut);
 ```
-gaussFiltr() method - blur with a mask, formed by the Gaussian distribution function in two-dimensional form.
+2. gaussFiltr() method - blur with a mask, formed by the Gaussian distribution function in two-dimensional form.
