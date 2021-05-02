@@ -186,4 +186,46 @@ Setting new RGB values and save image.
 				 File ouptut = new File(picturePath.replace(".jpg", "_box_filtr.jpg"));
 				 ImageIO.write(image, "jpg", ouptut);
 ```
-2. gaussFiltr() method - blur with a mask, formed by the Gaussian distribution function in two-dimensional form.
+2. gaussFiltr() method - blur with a Gauss filter mask 5x5.\
+The mask weight system is similar to the Gaussian distribution.
+```java
+	static double maskGauss[][] = {{1,1,1,1,1}, {1,2,4,2,1}, {1,4,8,4,1}, {1,2,4,2,1}, {1,1,1,1,1}};
+```
+By anology with boxFilter() with some differences.\
+The loop starts with 2, because the mask is bigger.\
+Count the sum of the elements of this mask.\
+Checking that it isn't out of range RGB.\
+Setting new RGB values and save image.
+```java
+	...
+	for(int i = 2; i < height-2; i++){
+		for(int j = 2; j < width-2; j++){
+						 
+			 double x, y, z;
+			 x = 0;
+			 y = 0;
+			 z = 0;
+						 
+			 double sum = 0;
+
+			 for(int k=-2; k<=2; k++) {
+			     for(int l=-2; l<=2; l++) {
+				 Color c = new Color(image.getRGB(j+k, i+l));
+				 int red = (int)(c.getRed());
+				 int green = (int)(c.getGreen());
+				 int blue = (int)(c.getBlue());
+
+				 x += red * maskGauss[k+2][l+2];
+				 y += green * maskGauss[k+2][l+2];
+				 z += blue * maskGauss[k+2][l+2];
+
+				 sum += maskGauss[k+2][l+2];
+			     }
+			}
+						 
+			x = x/sum;
+			y = y/sum;
+			z = z/sum;
+			...
+```
+
