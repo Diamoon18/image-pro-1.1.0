@@ -11,7 +11,7 @@ New functions:
 ![image](https://user-images.githubusercontent.com/72127610/116815961-579c4000-ab60-11eb-9496-43fd90182a9a.png)
 ## Code explanation
 ### New code in Model
-New BoardEnum - Other
+New in the BoardEnum - Other
 ```java
 public enum BoardEnum {
 	MENU,
