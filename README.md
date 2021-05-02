@@ -80,3 +80,43 @@ if(e.equals(pow.powButtons[4])) {
 			}
 ...
 ```
+powModel - new method wyrownanieHistogramu()\
+1. Compute h - histogram for the image.
+```java
+		wykresRgb();
+```
+2. Calculation of the cumulative histogram from the histogram h, for RGB channels
+```java
+private double[] plotKomulacyjny(double [] rgb) {
+	    double [] tablica = new double[256];
+	    tablica[0] = rgb[0];
+	    for (int i = 1; i < rgb.length; i++) {
+	    	tablica[i] = rgb[i] + tablica[i-1];
+	    }
+		return tablica;
+}
+```
+```java
+		plotRGB g = new plotRGB(redd, greenn, bluee);
+		double [] n_red = g.getRed();
+		double [] n_green = g.getGreen();
+		double [] n_blue = g.getBlue();
+```
+3. Find a new intensity value for each point in the image
+```java
+		x = (int) ((255/(height*width))*n_red[red]);
+		y = (int) ((255/(height*width))*n_green[green]);
+		z = (int) ((255/(height*width))*n_blue[blue]);
+```
+4. Setting new RGB values and filling arrays with values to draw a histogram
+```java
+		Color newColor = new Color(x, y, z);
+		image.setRGB(j,i,newColor.getRGB());
+				 
+		w_red[newColor.getRed()]++;
+		w_green[newColor.getGreen()]++;
+		w_blue[newColor.getBlue()]++;
+		....
+		plotRGB wRGB = new plotRGB(w_red, w_green, w_blue);
+		wRGB.drawPlot();
+```
