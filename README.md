@@ -125,3 +125,64 @@ public double[] getRed() {
 		plotRGB wRGB = new plotRGB(w_red, w_green, w_blue);
 		wRGB.drawPlot();
 ```
+otherModel class - Box filtr and Gauss filtr\
+Class structure is similar to linearModel.
+1.Box filter - blur with a mask 3x3
+```java
+		static int mask[][] = {{1,1,1}, {1,1,1}, {1,1,1}};
+```
+Main logic of the Box filter.\
+Image convolution filtering mechanism:\
+The image brightness values multiplied by the masking factors will be summed up and divided by the sum of the masking factors.\
+Checking that it isn't out of range RGB.\
+Setting new RGB values and save image.
+```java
+		for(int i = 1; i < height-1; i++){
+			for(int j = 1; j < width-1; j++){
+						 
+				 int x, y, z;
+				 x = 0;
+				 y = 0;
+				 z = 0;
+						 
+				 for(int k=-1; k<=1; k++) {
+					 for(int l=-1; l<=1; l++) {
+						 Color c = new Color(image.getRGB(j+k, i+l));
+						 int red = (int)(c.getRed());
+						 int green = (int)(c.getGreen());
+						 int blue = (int)(c.getBlue());
+
+						 x += red * mask[k+1][l+1];
+						 y += green * mask[k+1][l+1];
+						 z += blue * mask[k+1][l+1];
+
+							 }
+						 }
+							 
+						 x = x/9;
+						 y = y/9;
+						 z = z/9;
+						 
+						 if (x>255) {
+							 x=255;
+						 }else if (x < 0){
+							 x=0;
+						 }
+						 if (y>255) {
+							 y=255;
+						 }else if (y < 0){
+							 y=0;
+						 }
+						 if (z>255) {
+							 z=255;
+						 }else if (z < 0){
+							 z=0;
+						 }
+						
+						 Color newColor = new Color(x, y, z);
+						 image.setRGB(j,i,newColor.getRGB());
+					 }
+				 }
+				 File ouptut = new File(picturePath.replace(".jpg", "_box_filtr.jpg"));
+				 ImageIO.write(image, "jpg", ouptut);
+```
