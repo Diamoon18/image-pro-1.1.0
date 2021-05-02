@@ -1,9 +1,9 @@
 # image-pro-1.1.0
 Update image 1.0 \
 New functions:
-1. Histogram equalization 
-2. Box filter
-3. Gauss filter
+1. Histogram equalization (pow, contrast)
+2. Box filter (other)
+3. Gauss filter (other)
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/72127610/116815946-45220680-ab60-11eb-807d-6923403d037b.png)
 ![image](https://user-images.githubusercontent.com/72127610/116815951-4b17e780-ab60-11eb-8389-aeeb7306d2b4.png)
